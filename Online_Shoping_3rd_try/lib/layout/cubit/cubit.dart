@@ -8,6 +8,7 @@ import 'package:online_shoping_3rd_try/layout/cubit/states.dart';
 import 'package:online_shoping_3rd_try/models/ProductModel.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/CategoriesScreenScreen.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/FavScreen.dart';
+import 'package:online_shoping_3rd_try/modules/LayoutScreens/MyCart.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/ProductsScreen.dart';
 
 import '../../modules/LayoutScreens/SettingsScreen.dart';
@@ -26,6 +27,7 @@ class ShopCubit extends Cubit<ShopState>
     ProductsScreen(),
     CategoriesScreen(),
     FavScreen(),
+    // MyCartScreen(),
     SettingsScreen(),
   ];
 
@@ -48,7 +50,7 @@ class ShopCubit extends Cubit<ShopState>
     ).then((value) {
 
 
-      productModelJson=ProductModelJson.fromJson(value!.data);
+      productModelJson=ProductModelJson.fromJson(value!.data[0]);
 
       printFullText(productModelJson!.name.toString());
 

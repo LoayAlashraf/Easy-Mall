@@ -41,6 +41,10 @@ dependencies:
   fluttertoast: ^8.0.9
   carousel_slider: ^3.0.0
   conditional_builder: ^1.0.2
+  flutter_credit_card:
+  google_maps_flutter: ^2.1.2
+  map_picker:
+  geocoding:
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -71,7 +75,13 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+    - assets/images/
 
+  fonts:
+    - family: Jannah
+      fonts:
+        - asset: assets/fonts/jannah.ttf
+          weight: 700
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

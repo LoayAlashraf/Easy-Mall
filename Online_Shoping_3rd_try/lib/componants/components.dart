@@ -429,3 +429,50 @@ Color chooseToastColor(ToastStates state) {
 //         ),
 //       ),
 //     );
+Widget icontext ({
+  required Function() onTap ,
+  required icon,
+  required String Textt,
+}) => GestureDetector(
+  onTap: onTap,
+  child:   Container(
+    height: 40.0,
+
+    decoration: BoxDecoration(
+
+      borderRadius: BorderRadius.circular(15.0,),
+      color: Colors.grey[200],
+    ),
+
+    padding: EdgeInsets.all(
+
+      7.0,
+
+    ),
+
+    child: Row(
+
+      children: [
+
+        Icon(icon
+
+        ),
+
+        SizedBox(
+
+          width: 5.0,
+
+        ),
+
+        Text(
+
+          Textt,
+
+        ),
+
+      ],
+
+    ),
+
+  ),
+);

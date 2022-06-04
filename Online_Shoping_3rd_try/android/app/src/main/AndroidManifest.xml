@@ -4,6 +4,8 @@
         android:label="online_shoping_3rd_try"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyA6DknmDgKZT8qQPj-5tKRzuymWrS1Ws-8"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -32,8 +32,8 @@ class ProductsScreen extends StatelessWidget {
         crossAxisSpacing: 10.0,
         childAspectRatio: 1/1.5,
         children:
-          List.generate(
-              model?.length,
+          List.generate(8,
+              // model?.length,
                 (index) => InkWell(
                   onTap: (){},
                   child: Container(
@@ -42,7 +42,7 @@ class ProductsScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 40.0,
-                          backgroundImage: NetworkImage(model[index].image),
+                          backgroundImage: NetworkImage(model!.image![index]),
                           backgroundColor: Colors.white,
                           ),
                           SizedBox(

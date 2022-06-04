@@ -10,6 +10,7 @@ import 'Network/Remote/dio_helper.dart';
 import 'Network/Remote/dioo_helper.dart';
 import 'Network/bloc_observer.dart';
 import 'Network/local/cache_helper.dart';
+import 'componants/constans.dart';
 import 'modules/on_bording_screen/on_bording_screen.dart';
 
 void main() async{
@@ -61,6 +62,11 @@ class MyApp extends StatelessWidget {
         builder: (context,state) {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                fontFamily: 'Almarai',
+                //textTheme: GoogleFonts.almaraiTextTheme(Theme.of(context).textTheme),
+
+              ),
               home: startWidget
           );
           },

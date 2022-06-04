@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shoping_3rd_try/Network/local/cache_helper.dart';
 import 'package:online_shoping_3rd_try/componants/components.dart';
 import 'package:online_shoping_3rd_try/layout/cubit/cubit.dart';
+import 'package:online_shoping_3rd_try/modules/LayoutScreens/MyCart.dart';
 import 'package:online_shoping_3rd_try/modules/Login_screen/login_screen.dart';
 
 import '../modules/searsh/SearchScreen.dart';
@@ -26,7 +27,13 @@ class ShopLayout extends StatelessWidget {
                   {
                     navigateTo(context, SearchScreen());
                     },
-                  icon: Icon(Icons.search))
+                  icon: Icon(Icons.search)),
+              IconButton(
+                  onPressed: ()
+                  {
+                    navigateTo(context, MyCartScreen());
+                  },
+                  icon: Icon(Icons.shopping_cart))
             ],
           ),
           body: cubit.bottomScreen[cubit.currentIndex],
@@ -51,6 +58,10 @@ class ShopLayout extends StatelessWidget {
                   icon: Icon(Icons.favorite,),
                   label: 'Favorite'
               ),
+              // BottomNavigationBarItem(
+              //     icon: Icon(Icons.add_shopping_cart,),
+              //     label: 'MyCart'
+              // ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings,),
                   label: 'Settings'
