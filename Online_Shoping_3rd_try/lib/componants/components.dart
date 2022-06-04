@@ -476,3 +476,55 @@ Widget icontext ({
 
   ),
 );
+Widget sections({
+  required Function() onTap ,
+  required AssetImage assetImage,
+  required String firstText,
+  required String SecondText,
+  Color background = Colors.white,
+}) => Expanded(
+  child:   GestureDetector(
+    onTap: onTap,
+    child: Container(
+
+      width:80 ,
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 40.0,
+            backgroundImage: assetImage,
+            backgroundColor: background,
+
+
+          ),
+          SizedBox(
+            height: 8.0,
+          ),
+          Text(
+            firstText,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15.0 ,
+            ),
+
+          ),
+          Text(
+            SecondText,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15.0 ,
+            ),
+          ),
+
+
+        ],
+
+
+      ),
+    ),
+  ),
+);

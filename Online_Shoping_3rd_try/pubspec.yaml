@@ -76,6 +76,7 @@ flutter:
   assets:
     - images/
     - assets/images/
+    - images/HomeScreen/
 
   fonts:
     - family: Jannah

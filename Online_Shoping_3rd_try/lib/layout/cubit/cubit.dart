@@ -6,7 +6,7 @@ import 'package:online_shoping_3rd_try/Network/end_point.dart';
 import 'package:online_shoping_3rd_try/componants/constans.dart';
 import 'package:online_shoping_3rd_try/layout/cubit/states.dart';
 import 'package:online_shoping_3rd_try/models/ProductModel.dart';
-import 'package:online_shoping_3rd_try/modules/LayoutScreens/CategoriesScreenScreen.dart';
+import 'package:online_shoping_3rd_try/modules/LayoutScreens/CategoriesScreen.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/FavScreen.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/MyCart.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/ProductsScreen.dart';
