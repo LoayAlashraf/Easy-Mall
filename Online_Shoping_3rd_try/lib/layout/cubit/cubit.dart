@@ -8,7 +8,6 @@ import 'package:online_shoping_3rd_try/layout/cubit/states.dart';
 import 'package:online_shoping_3rd_try/models/ProductModel.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/CategoriesScreen.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/FavScreen.dart';
-import 'package:online_shoping_3rd_try/modules/LayoutScreens/MyCart.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/ProductsScreen.dart';
 
 import '../../modules/LayoutScreens/SettingsScreen.dart';
@@ -22,6 +21,7 @@ class ShopCubit extends Cubit<ShopState>
   static ShopCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0 ;
+  int productcount=0;
 
   List<Widget> bottomScreen =[
     ProductsScreen(),
@@ -48,11 +48,13 @@ class ShopCubit extends Cubit<ShopState>
     DioHelperr.getData(
         url: Product,
     ).then((value) {
+      for(int i=productcount;i<value!.data.length;i++){
+        productModelJson=ProductModelJson.fromJson(value.data[i]);
+        printFullText(productModelJson!.name.toString());
+        printFullText(productModelJson!.id.toString());
+      }
 
 
-      productModelJson=ProductModelJson.fromJson(value!.data[0]);
-
-      printFullText(productModelJson!.name.toString());
 
       emit(ShopSuccessHomeDataScreen());}
 

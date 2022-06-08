@@ -5,6 +5,8 @@ import 'package:online_shoping_3rd_try/layout/cubit/cubit.dart';
 import 'package:online_shoping_3rd_try/layout/cubit/states.dart';
 import 'package:online_shoping_3rd_try/models/ProductModel.dart';
 
+import '../../componants/constans.dart';
+
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);
 
@@ -22,33 +24,34 @@ class ProductsScreen extends StatelessWidget {
         }
     );
   }
-  Widget ProductsBuilder(ProductModelJson? model) => Column(
-    children: [
-      GridView.count(
-        crossAxisCount: 2,
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        mainAxisSpacing: 30.0,
-        crossAxisSpacing: 10.0,
-        childAspectRatio: 1/1.5,
-        children:
-          List.generate(8,
-              // model?.length,
-                (index) => InkWell(
-                  onTap: (){},
-                  child: Container(
-                    width: 80,
+  Widget ProductsBuilder(ProductModelJson? model, ) => SingleChildScrollView(
+    scrollDirection: Axis.vertical,
+    child: Column(
+      children: [
+        GridView.count(
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          mainAxisSpacing: 10.0,
+          crossAxisSpacing: 10.0,
+          childAspectRatio: 1/1,
+          children:
+            List.generate(8,
+                // model?.length,
+                  (index) => InkWell(
+                    onTap: (){},
                     child: Column(
                       children: [
+                        SizedBox(height: 10,),
                         CircleAvatar(
                           radius: 40.0,
-                          backgroundImage: NetworkImage(model!.image![index]),
+                          backgroundImage: NetworkImage('${model!.image}'),
                           backgroundColor: Colors.white,
                           ),
                           SizedBox(
                               height:8.0),
                           Text(
-                            'phone',
+                            '${model.name}',
                             maxLines: 2,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
@@ -63,7 +66,7 @@ class ProductsScreen extends StatelessWidget {
                             textBaseline: TextBaseline.alphabetic,
                             children: [
                               Text(
-                                '2500',
+                                '${model.cost}',
                                 maxLines: 2,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -93,9 +96,9 @@ class ProductsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-          ),
-      ),
-      ],
+            ),
+        ),
+        ],
+    ),
   );
 }
