@@ -45,13 +45,13 @@ class ProductsScreen extends StatelessWidget {
                         SizedBox(height: 10,),
                         CircleAvatar(
                           radius: 40.0,
-                          backgroundImage: NetworkImage('${model!.image}'),
+                          backgroundImage: NetworkImage(model!.image.toString()),
                           backgroundColor: Colors.white,
                           ),
                           SizedBox(
                               height:8.0),
                           Text(
-                            '${model.name}',
+                            model.name.toString(),
                             maxLines: 2,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
@@ -66,7 +66,7 @@ class ProductsScreen extends StatelessWidget {
                             textBaseline: TextBaseline.alphabetic,
                             children: [
                               Text(
-                                '${model.cost}',
+                                model.cost.toString(),
                                 maxLines: 2,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
