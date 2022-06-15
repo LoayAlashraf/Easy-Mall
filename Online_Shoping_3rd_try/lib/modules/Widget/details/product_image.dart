@@ -29,12 +29,16 @@ class ProductImage extends StatelessWidget {
               shape: BoxShape.circle,
             ),
           ),
-          Image.asset(image,
-            height: size.width * 0.75,
+          // Image.asset(image,
+          //   height: size.width * 0.75,
+          //   width: size.width * 0.75,
+          //   fit: BoxFit.cover,
+          //
+          // ),
+          Image.network(image,
+            height:size.width * 0.75 ,
             width: size.width * 0.75,
-            fit: BoxFit.cover,
-
-          ),
+            fit: BoxFit.cover,)
         ],
       ),
     );

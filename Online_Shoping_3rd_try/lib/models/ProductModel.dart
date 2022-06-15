@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-List<ProductModelJson> productModelJsonFromJson(String str) => List<ProductModelJson>.from(json.decode(str).map((x) => ProductModelJson.fromJson(x)));
+List<ProductModelJson> productModelJsonFromJson(String str) =>
+    List<ProductModelJson>.from(json.decode(str).map((x) => ProductModelJson.fromJson(x)));
 
-String productModelJsonToJson(List<ProductModelJson> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String productModelJsonToJson(List<ProductModelJson> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ProductModelJson {
   ProductModelJson({

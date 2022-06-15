@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:online_shoping_3rd_try/modules/CategoryProductsScreen.dart';
 
 import '../../componants/components.dart';
+import '../../componants/variables.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +18,8 @@ class CategoriesScreen extends StatelessWidget {
                 sections(
                     onTap: ()
                     {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => MenFashion(),),
-                  // );
-                },
+                      navigateTo(context, CategoryProductsScreen(CategoryId = 1));
+                      },
                     assetImage: AssetImage('images/HomeScreen/mens.jpg',),
                     firstText: 'Men\'s',
                     SecondText: 'Fashion'),

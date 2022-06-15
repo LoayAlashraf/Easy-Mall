@@ -31,15 +31,9 @@ class SettingsScreen extends StatelessWidget {
                   text: 'My Cart',
                   function: ()
                   {
-                    navigateTo(context, MyCartScreen());
+                   // navigateTo(context, MyCartScreen());
                   }),
-             // SizedBox(height: 20,),
-              // defaultButton(
-              //     text: 'My Favorite',
-              //     function: ()
-              //     {
-              //       navigateTo(context, FavScreen());
-              //     }),
+
               SizedBox(height: 20,),
               defaultButton(
                   text: 'Address',
@@ -51,12 +45,6 @@ class SettingsScreen extends StatelessWidget {
               defaultButton(
                   text: 'LogOut',
                   function: () {}),
-              // defaultButton(
-              //     text: '',
-              //     function: () {  }),
-              // defaultButton(
-              //     text: '',
-              //     function: () {  }),
             ],
           ),
         ),

@@ -31,7 +31,8 @@ class ShopLayout extends StatelessWidget {
               IconButton(
                   onPressed: ()
                   {
-                    navigateTo(context, MyCartScreen());
+                    navigateTo(context,
+                        MyCartScreen());
                   },
                   icon: Icon(Icons.shopping_cart))
             ],

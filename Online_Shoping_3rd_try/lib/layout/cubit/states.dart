@@ -12,4 +12,10 @@ class ShopSuccessHomeDataScreen extends ShopState{}
 
 class ShopErrorHomeDataScreen extends ShopState{}
 
+class ShopLoadingCategoryDataScreen extends ShopState{}
+
+class ShopSuccessCategoryDataScreen extends ShopState{}
+
+class ShopErrorCategoryDataScreen extends ShopState{}
+
 

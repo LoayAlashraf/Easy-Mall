@@ -12,11 +12,7 @@ void main() {
   runApp(Google_map_Screen());
 }
 
-
 class Google_map_Screen extends StatelessWidget {
-
-
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -28,7 +24,6 @@ class Google_map_Screen extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -102,7 +97,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 // update the ui with the address
                 textController.text =
-                '${placemarks.first.name},${placemarks.first.street}, ${placemarks.first.administrativeArea}, ${placemarks.first.country} ';
+                '${placemarks.first.name},${placemarks.first.street},'
+                    ' ${placemarks.first.administrativeArea}, ${placemarks.first.country} ';
               },
             ),
           ),

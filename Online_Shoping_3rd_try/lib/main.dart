@@ -11,6 +11,7 @@ import 'Network/Remote/dioo_helper.dart';
 import 'Network/bloc_observer.dart';
 import 'Network/local/cache_helper.dart';
 import 'componants/constans.dart';
+import 'componants/variables.dart';
 import 'modules/on_bording_screen/on_bording_screen.dart';
 
 void main() async{
@@ -25,6 +26,7 @@ void main() async{
 
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
   String? token = CacheHelper.getData(key: 'token');
+
 
   if(onBoarding != null)
     {

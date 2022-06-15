@@ -34,31 +34,14 @@ class FavScreen extends StatelessWidget {
                   itemBuilder: (context, index) => MyWishProduct(
                     itemIndex: index,
                     product: products[index],
-                    press: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => DetailsScreen(
-                      //       product: products[index],
-
-                      //     ),
-                      //   ),
-                      // );
-                    },
+                    press: () {},
                   ),
                 ),
-
               ],
             ),
           ),
-
-
         ],
       ),
-
-
-
-
     );
   }
 }

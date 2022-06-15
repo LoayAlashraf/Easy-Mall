@@ -24,14 +24,15 @@ class CardChoosen extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailsScreen(
-              product: products[itemIndex],
-            ),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) =>
+        //         DetailsScreen(
+        //       product: products[itemIndex],
+        //     ),
+        //   ),
+        // );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),

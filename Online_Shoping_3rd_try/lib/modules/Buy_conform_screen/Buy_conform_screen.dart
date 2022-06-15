@@ -186,8 +186,6 @@ class _BuyConformScreenState extends State<BuyConformScreen> {
               ),
             ),
 
-
-
           ],
         ),
       ),

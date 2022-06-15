@@ -13,8 +13,6 @@ class AddAddressScreen extends StatelessWidget
     required this.address,
 });
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

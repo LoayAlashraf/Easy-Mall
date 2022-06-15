@@ -10,6 +10,7 @@ import 'package:online_shoping_3rd_try/modules/LayoutScreens/CategoriesScreen.da
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/FavScreen.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/ProductsScreen.dart';
 
+import '../../componants/variables.dart';
 import '../../modules/LayoutScreens/SettingsScreen.dart';
 
 
@@ -28,7 +29,7 @@ class ShopCubit extends Cubit<ShopState>
     CategoriesScreen(),
     FavScreen(),
     // MyCartScreen(),
-    SettingsScreen(),
+     SettingsScreen(),
   ];
 
   void changBottom(int index)
@@ -48,14 +49,19 @@ class ShopCubit extends Cubit<ShopState>
     DioHelperr.getData(
         url: Product,
     ).then((value) {
-      for(int i=productcount;i<value!.data.length;i++){
-        productModelJson=ProductModelJson.fromJson(value.data[i]);
-        printFullText(productModelJson!.name.toString());
-        printFullText(productModelJson!.id.toString());
+      // value!.data;
+      // productModelJson=ProductModelJson.fromJson(value.data);
+      // printFullText(productModelJson!.name.toString());
+      // printFullText(productModelJson!.id.toString());
+
+      for(int i=0;i<value!.data.length;i++){
+        productModelJson =ProductModelJson.fromJson(value.data[i]);
+      ProductList.add(productModelJson!);
+
+        //printFullText(productModelJson!.name.toString());
+        //printFullText(productModelJson!.id.toString());
+
       }
-
-
-
       emit(ShopSuccessHomeDataScreen());}
 
       ).catchError((error){
@@ -63,6 +69,36 @@ class ShopCubit extends Cubit<ShopState>
       print(error.toString());
 
       emit(ShopErrorHomeDataScreen());});
+
+  }
+
+
+  void getCategoryData(CategoryId)
+  {
+    emit(ShopLoadingCategoryDataScreen());
+
+    DioHelperr.getData(
+      url: CategoryProducts,
+      query: {
+        "Id" : CategoryId
+      }
+    ).then((value) {
+
+      for(int i=0;i<value!.data.length;i++){
+        productModelJson =ProductModelJson.fromJson(value.data[i]);
+        ProductCategoryList.add(productModelJson!);
+
+        //printFullText(productModelJson!.name.toString());
+        //printFullText(productModelJson!.id.toString());
+
+      }
+      emit(ShopSuccessCategoryDataScreen());}
+
+    ).catchError((error){
+
+      print(error.toString());
+
+      emit(ShopErrorCategoryDataScreen());});
 
   }
 
