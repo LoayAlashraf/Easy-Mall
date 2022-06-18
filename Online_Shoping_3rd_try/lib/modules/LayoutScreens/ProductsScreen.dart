@@ -2,6 +2,7 @@ import 'package:conditional_builder_rec/conditional_builder_rec.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shoping_3rd_try/Network/Remote/dioo_helper.dart';
 import 'package:online_shoping_3rd_try/layout/cubit/cubit.dart';
 import 'package:online_shoping_3rd_try/layout/cubit/states.dart';
 import 'package:online_shoping_3rd_try/models/ProductModel.dart';
@@ -16,6 +17,7 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocConsumer<ShopCubit,ShopState>(
         listener: (context, state) {},
         builder: (context,state)
@@ -117,7 +119,8 @@ class ProductsScreen extends StatelessWidget {
                     (index) => InkWell(
                       onTap: ()
                       {
-                        navigateTo(context,DetailsScreen(index ));
+                        navigateTo(context,DetailsScreen(productid=ProductList[index]!.id  ));
+                        //print(productid);
 
                       },
                       child: Container(
@@ -164,14 +167,14 @@ class ProductsScreen extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      Text(ProductList[index]!.cost.toString(),
+                                      Text((ProductList[index]!.cost-((ProductList[index]!.discount/100)*ProductList[index]!.cost)).toStringAsFixed(2),
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           color: Colors.blue,
                                       )),
                                       SizedBox(width:5.0 ,),
-                                      if(ProductList[index]!.discount.toString() != 0)
-                                        Text(ProductList[index]!.cost.toString(),
+                                      if(ProductList[index]!.discount != 0)
+                                          Text(ProductList[index]!.cost.toString(),
                                           style: TextStyle(
                                             fontSize: 10.0,
                                             color: Colors.grey,
@@ -179,10 +182,22 @@ class ProductsScreen extends StatelessWidget {
                                           ),
                                         ),
                                       Spacer(),
-                                      IconButton(onPressed: (){},
+                                      IconButton(onPressed: ()
+                                      {
+                                        ShopCubit.get(context).changeFav(
+                                            userId=2,
+                                            productId=ProductList[index].id,
+                                            productName=ProductList[index].name.toString(),
+                                            productImage=ProductList[index].image.toString(),
+                                            productDiscount=ProductList[index].discount.toString(),
+                                            productCost=ProductList[index].cost.toString(),
+                                            producCount=ProductList[index].count.toString(),
+                                            is_Cart=false,
+                                            );
+                                      },
                                         icon: CircleAvatar(
                                         radius: 15.0,
-                                        backgroundColor: Colors.grey,
+                                        backgroundColor: (ProductList[index].inFav == true)? Colors.red: Colors.grey,
                                         child: Icon(
                                           Icons.favorite_border,
                                           size: 14.0,
@@ -192,7 +207,7 @@ class ProductsScreen extends StatelessWidget {
 
                                     ],
                                   )
-                                  
+
                                 ],),
                             )
                           ],

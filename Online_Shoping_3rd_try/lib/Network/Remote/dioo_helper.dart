@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
 
+import '../../componants/variables.dart';
+import '../../models/FavModel.dart';
+import '../end_point.dart';
+
 class DioHelperr
 {
   static Dio? dio;
@@ -30,28 +34,39 @@ class DioHelperr
   }
 
 
+  static Future<Response?>postData({
+    required String url,
+    Map<String, dynamic> ?query,
+    Map<String, dynamic> ?data,
+  })async
+  {
+    return await dio?.post(
+        url ,
+        queryParameters: query,
+        data: data
+    );
+  }
 
 
+  static Future <Response?> addToFav(userId,productId,productName,productImage,productDiscount,productCost,producCount,is_Cart,is_Active) async
+  {
+    return await DioHelperr.postData(
+        url: addtofavoret,
+        data:
+        {
+          "userId": userId,
+          "productId": productId,
+          "productName": productName,
+          "productImage": productImage,
+          "productDiscount": productDiscount,
+          "productCost": productCost,
+          "producCount": producCount,
+          "is_Cart": is_Cart,
+          "is_Active": is_Active,
+        }).then(
+            (value) {
+              favModel = FavModel.fromJson(value!.data);
+            }).catchError((error) {print(error.toString());});
+  }
 
-
-
-  // static Future<Response?>postData({
-  //   required String url,
-  //   Map<String, dynamic> ?query,
-  //   required Map<String, dynamic> data,
-  //   String lang = 'ar',
-  //   String? token,
-  // })async
-  // {
-  //   dio?.options.headers=
-  //   {
-  //     'lang': lang,
-  //     'Authorization':token,
-  //   };
-  //   return await dio?.post(
-  //       url ,
-  //       queryParameters: query,
-  //       data: data
-  //   );
-  // }
 }

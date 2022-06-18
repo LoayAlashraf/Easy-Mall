@@ -18,4 +18,20 @@ class ShopSuccessCategoryDataScreen extends ShopState{}
 
 class ShopErrorCategoryDataScreen extends ShopState{}
 
+class ShopLoadingCategoryProductDataScreen extends ShopState{}
 
+class ShopSuccessCategoryProductDataScreen extends ShopState{}
+
+class ShopErrorCategoryProductDataScreen extends ShopState{}
+
+class ShopLoadingDetailsProductDataScreen extends ShopState{}
+
+class ShopSuccessDetailsProductDataScreen extends ShopState{}
+
+class ShopErrorDetailsProductDataScreen extends ShopState{}
+
+class ShopLoadingFavProductDataScreen extends ShopState{}
+
+class ShopSuccessFavProductDataScreen extends ShopState{}
+
+class ShopErrorFavProductDataScreen extends ShopState{}

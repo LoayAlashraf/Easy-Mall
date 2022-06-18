@@ -1,16 +1,22 @@
+import 'dart:ffi';
+
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shoping_3rd_try/Network/Remote/dioo_helper.dart';
 import 'package:online_shoping_3rd_try/Network/end_point.dart';
 import 'package:online_shoping_3rd_try/componants/constans.dart';
 import 'package:online_shoping_3rd_try/layout/cubit/states.dart';
+import 'package:online_shoping_3rd_try/models/CategoryModel.dart';
+import 'package:online_shoping_3rd_try/models/FavModelByUserID.dart';
 import 'package:online_shoping_3rd_try/models/ProductModel.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/CategoriesScreen.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/FavScreen.dart';
 import 'package:online_shoping_3rd_try/modules/LayoutScreens/ProductsScreen.dart';
 
 import '../../componants/variables.dart';
+import '../../models/FavModel.dart';
+import '../../models/productdetailsmodel.dart';
 import '../../modules/LayoutScreens/SettingsScreen.dart';
 
 
@@ -40,7 +46,7 @@ class ShopCubit extends Cubit<ShopState>
 
   ProductModelJson? productModelJson;
 
-
+  Map<int?, bool?> favorites = {};
 
   void getHomeData()
   {
@@ -55,12 +61,18 @@ class ShopCubit extends Cubit<ShopState>
       // printFullText(productModelJson!.id.toString());
 
       for(int i=0;i<value!.data.length;i++){
+
         productModelJson =ProductModelJson.fromJson(value.data[i]);
       ProductList.add(productModelJson!);
 
         //printFullText(productModelJson!.name.toString());
         //printFullText(productModelJson!.id.toString());
+        ProductList.forEach((element)
+        {
+          favorites.addAll({
+            element.id :element.inFav,});
 
+        });
       }
       emit(ShopSuccessHomeDataScreen());}
 
@@ -73,9 +85,9 @@ class ShopCubit extends Cubit<ShopState>
   }
 
 
-  void getCategoryData(CategoryId)
+  void getCategoryProductData(CategoryId)
   {
-    emit(ShopLoadingCategoryDataScreen());
+    emit(ShopLoadingCategoryProductDataScreen());
 
     DioHelperr.getData(
       url: CategoryProducts,
@@ -83,10 +95,57 @@ class ShopCubit extends Cubit<ShopState>
         "Id" : CategoryId
       }
     ).then((value) {
-
+      ProductCategoryList.clear();
       for(int i=0;i<value!.data.length;i++){
         productModelJson =ProductModelJson.fromJson(value.data[i]);
         ProductCategoryList.add(productModelJson!);
+
+        //printFullText(productModelJson!.name.toString());
+        //printFullText(productModelJson!.id.toString());
+
+      }
+      emit(ShopSuccessCategoryProductDataScreen());}
+
+    ).catchError((error){
+
+      print(error.toString());
+
+      emit(ShopErrorCategoryProductDataScreen());});
+
+  }
+  void getproductdetailsdata (productid,)
+  {
+    emit(ShopLoadingDetailsProductDataScreen());
+    //print(productid);
+    DioHelperr.getData(url: productsdetails,
+        query: {
+          "Id":productid
+        }).then((value)
+    {
+      //print(value.toString());
+      productdetailsmodel=Productdetailsmodel.fromJson(value!.data);
+      String? detailsimage = productdetailsmodel!.image.toString();
+      print(detailsimage);
+      print (productdetailsmodel.toString());
+
+      emit(ShopSuccessDetailsProductDataScreen());
+    }).catchError((error){
+      print(error.toString());
+
+      emit(ShopErrorDetailsProductDataScreen());});
+  }
+  void getCategoryData()
+  {
+    emit(ShopLoadingCategoryDataScreen());
+
+    DioHelperr.getData(
+        url: Category,
+
+    ).then((value) {
+
+      for(int i=0;i<value!.data.length;i++){
+        categoryModel =CategoryModel.fromJson(value.data[i]);
+        CategoryList.add(categoryModel!);
 
         //printFullText(productModelJson!.name.toString());
         //printFullText(productModelJson!.id.toString());
@@ -102,5 +161,73 @@ class ShopCubit extends Cubit<ShopState>
 
   }
 
+  void changeFav(userId, productId,productName, productImage, productDiscount, productCost, producCount, is_Cart, )
+  {
+    is_Active = !is_Active;
+    if (is_Active == true) {
+      MyColor = Colors.red;
+      DioHelperr.addToFav(userId, productId,productName, productImage, productDiscount, productCost, producCount, is_Cart, is_Active);
+    } else {
+      MyColor = Colors.red;
+    }
+
+
+  }
+
+  FavModelByUserId? favModelByUserId;
+
+  void getfavdatabyuserid()
+  {
+    emit(ShopLoadingFavProductDataScreen());
+
+    DioHelperr.getData(
+      url: findfavbyuserid,
+        query: {
+        "UserId":2
+        }).then((value)
+    {
+      for(int i=0;i<value!.data.length;i++){
+        favModelByUserId =FavModelByUserId.fromJson(value.data[i]);
+        FavModelByUserIdList.add(favModelByUserId!);
+        //printFullText(favModelByUserId!.productName.toString());
+        //printFullText(favModelByUserId!.productId.toString());
+        }
+      emit(ShopSuccessFavProductDataScreen());
+    }).catchError((error){
+      print(error.toString());
+      emit(ShopErrorFavProductDataScreen());
+    });
+  }
+
+
+  // void addToFav(userId,productId,productImage,productDiscount,productCost,producCount,is_Cart,is_Active)
+  // {
+  //   DioHelperr.postData(
+  //       url: addtofavoret,
+  //       data: {
+  //         "userId": userId,
+  //         "productId": productId,
+  //         "productImage": productImage,
+  //         "productDiscount": productDiscount,
+  //         "productCost": productCost,
+  //         "producCount": producCount,
+  //         "is_Cart": is_Cart,
+  //         "is_Active": is_Active,}
+  //         ).then((value) {
+  //           favModel = FavModel.fromJson(value!.data);
+  //           FAvList.add(favModel!);
+  //           FAvList.forEach((element)
+  //           {
+  //             favorites!.addAll({element.productId: element.isActive});
+  //           });
+  //           print(favorites.toString());
+  //         }
+  //           ).catchError((error){print(error.toString());});
+  // }
+
+
 
 }
+
+
+

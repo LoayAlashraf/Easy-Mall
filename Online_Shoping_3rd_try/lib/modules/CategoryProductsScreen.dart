@@ -16,10 +16,12 @@ class CategoryProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    ProductCategoryList.clear();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-        create: (BuildContext context)=>ShopCubit()..getCategoryData(CategoryId),
+        create: (BuildContext context)=>ShopCubit()..getCategoryProductData(CategoryId),
       )
       ],
       child: BlocConsumer<ShopCubit,ShopState>(
@@ -37,83 +39,7 @@ class CategoryProductsScreen extends StatelessWidget {
       ),
     );
   }
-  Widget ProductsBuilder( ProductCategoryList,context ) => SingleChildScrollView(
-    scrollDirection: Axis.vertical,
-    child: Column(
-
-      children: [
-        GridView.count(
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          mainAxisSpacing: 10.0,
-          crossAxisSpacing: 10.0,
-          childAspectRatio: 1/1,
-          children:
-          List.generate( ProductCategoryList!.length ,
-
-                (index) => InkWell(
-              onTap: ()
-              {
-                navigateTo(context,DetailsScreen(index ));
-
-              },
-              child: Column(
-                children: [
-                  SizedBox(height: 10,),
-                  CircleAvatar(
-                    radius: 40.0,
-                    backgroundImage: NetworkImage(ProductCategoryList[index]!.image.toString()),
-                    backgroundColor: Colors.white,
-                  ),
-                  SizedBox(
-                      height:8.0),
-                  Text(
-                    ProductCategoryList[index].name.toString(),
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.0 ,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    textBaseline: TextBaseline.alphabetic,
-                    children: [
-                      Text(
-                        ProductCategoryList[index].cost.toString(),
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.0 ,
-                            color: Colors.black54
-                        ),
-                      ),
-                      Text(
-                        'EGP',
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 9.0 ,
-                            color: Colors.black54
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-  Widget ProductsBuilder2( ProductList,context ) =>
+  Widget ProductsBuilder2( ProductCategoryList,context ) =>
       SingleChildScrollView(
         child: Column(children: [
           GridView.count(crossAxisCount: 2,
@@ -123,11 +49,11 @@ class CategoryProductsScreen extends StatelessWidget {
             crossAxisSpacing: 1.0,
             childAspectRatio: 1 / 1.58,
             children: List.generate(
-                ProductList!.length,
+                ProductCategoryList!.length,
                     (index) => InkWell(
                   onTap: ()
                   {
-                    navigateTo(context,DetailsScreen(index ));
+                    navigateTo(context,DetailsScreen(productid=ProductList[index].id ));
 
                   },
                   child: Container(
@@ -139,11 +65,11 @@ class CategoryProductsScreen extends StatelessWidget {
                           alignment: AlignmentDirectional.bottomStart,
                           children: [
                             Image(
-                              image: NetworkImage(ProductList[index]!.image.toString()),
+                              image: NetworkImage(ProductCategoryList[index]!.image.toString()),
                               width: double.infinity,
                               height: 200.0,
                             ),
-                            if(ProductList[index]!.discount !=0)
+                            if(ProductCategoryList[index]!.discount !=0)
                               Container(
                                 color: Colors.red,
                                 padding: EdgeInsets.symmetric(
@@ -164,7 +90,7 @@ class CategoryProductsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                ProductList[index]!.name.toString(),
+                                ProductCategoryList[index]!.name.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -174,14 +100,14 @@ class CategoryProductsScreen extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-                                  Text(ProductList[index]!.cost.toString(),
+                                  Text((ProductCategoryList[index]!.cost-((ProductCategoryList[index]!.discount/100)*ProductCategoryList[index]!.cost)).toStringAsFixed(2),
                                       style: TextStyle(
                                         fontSize: 18.0,
                                         color: Colors.blue,
                                       )),
                                   SizedBox(width:5.0 ,),
-                                  if(ProductList[index]!.discount.toString() != 0)
-                                    Text(ProductList[index]!.cost.toString(),
+                                  if(ProductCategoryList[index]!.discount.toString() != 0)
+                                    Text(ProductCategoryList[index]!.cost.toString(),
                                       style: TextStyle(
                                         fontSize: 10.0,
                                         color: Colors.grey,

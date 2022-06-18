@@ -1,15 +1,17 @@
 // To parse this JSON data, do
 //
-//     final favModel = favModelFromJson(jsonString);
+//     final favModelByUserId = favModelByUserIdFromJson(jsonString);
 
 import 'dart:convert';
 
-FavModel favModelFromJson(String str) => FavModel.fromJson(json.decode(str));
+List<FavModelByUserId> favModelByUserIdFromJson(String str) =>
+    List<FavModelByUserId>.from(json.decode(str).map((x) => FavModelByUserId.fromJson(x)));
 
-String favModelToJson(FavModel data) => json.encode(data.toJson());
+String favModelByUserIdToJson(List<FavModelByUserId> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class FavModel {
-  FavModel({
+class FavModelByUserId {
+  FavModelByUserId({
     this.id,
     this.userId,
     this.productId,
@@ -33,7 +35,7 @@ class FavModel {
   bool? isCart;
   bool? isActive;
 
-  factory FavModel.fromJson(Map<String, dynamic> json) => FavModel(
+  factory FavModelByUserId.fromJson(Map<String, dynamic> json) => FavModelByUserId(
     id: json["id"],
     userId: json["userId"],
     productId: json["productId"],

@@ -1,8 +1,16 @@
+import 'package:conditional_builder_rec/conditional_builder_rec.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shoping_3rd_try/Network/Remote/dio_helper.dart';
 import 'package:online_shoping_3rd_try/models/ProductModel.dart';
+import 'package:online_shoping_3rd_try/models/productdetailsmodel.dart';
 
+import '../../Network/Remote/dioo_helper.dart';
+import '../../Network/end_point.dart';
 import '../../componants/constans.dart';
 import '../../componants/variables.dart';
+import '../../layout/cubit/cubit.dart';
+import '../../layout/cubit/states.dart';
 import '../../models/product.dart';
 import '../Widget/details/color_dot.dart';
 import '../Widget/details/details_body.dart';
@@ -12,24 +20,36 @@ import '../Widget/details/product_image.dart';
 class DetailsScreen extends StatelessWidget {
 
 
-   ProductModelJson product=new ProductModelJson();
-
-   DetailsScreen(@required int? index)
-   {
-
-     product=ProductList[index!];
-   }
-
-
-
+   // ProductModelJson product=new ProductModelJson();
+   //
+   // DetailsScreen(@required int? index)
+   // {
+   //
+   //   product=ProductList[index!];
+   // }
+  DetailsScreen(productid){}
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kPrimaryColor,
-      appBar: detailsAppBar(context),
-      body: detailsbody(context,product));
-
+    return MultiBlocProvider(providers: [
+      BlocProvider(
+      create: (BuildContext context)=>ShopCubit()..getproductdetailsdata(productid),)
+    ],
+        child:BlocConsumer<ShopCubit,ShopState>(
+            listener: (context, state) {},
+            builder: (context,state){
+              return Scaffold(
+                  backgroundColor: kPrimaryColor,
+                  appBar: detailsAppBar(context),
+                  body:ConditionalBuilderRec(
+                    condition: false,
+                    builder:(context)=> detailsbody(productdetailsmodel,context),
+                    fallback:(context) => Center(child: CircularProgressIndicator())
+                  ),
+              );
+            }
+            )
+    );
   }
 
   AppBar detailsAppBar(BuildContext context) {
@@ -51,7 +71,7 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 }
-Widget detailsbody(context,product) => SingleChildScrollView(
+Widget detailsbody(context,productdetailsmodel) => SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -74,7 +94,7 @@ Widget detailsbody(context,product) => SingleChildScrollView(
                 Center(
                   child: ProductImage(
                     size: MediaQuery.of(context).size,
-                    image: product.image,
+                    image: 'https://z.nooncdn.com/products/v1613148237/N43080201V_1.jpg',
                   ),
                 ),
                 // Padding(
@@ -99,10 +119,10 @@ Widget detailsbody(context,product) => SingleChildScrollView(
                 // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: kDefaultpadding / 2,),
-                  child: Text(product.name,
+                  child: Text(productdetailsmodel.name,
                     style: Theme.of(context).textTheme.headline6 ,),
                 ),
-                Text("price""  ${product.cost}"
+                Text("price""  ${productdetailsmodel.cost}"
                   //   'السعر:\$${product.price}'
                   ,
                   style: TextStyle(
@@ -119,7 +139,7 @@ Widget detailsbody(context,product) => SingleChildScrollView(
             margin: EdgeInsets.symmetric(vertical: kDefaultpadding / 2,),
             padding: EdgeInsets.symmetric(horizontal: kDefaultpadding*1.5, vertical: kDefaultpadding/2,),
 
-            child: Text(product.description,
+            child: Text(productdetailsmodel.description,
               style: TextStyle(color: Colors.white,
                 fontSize: 19.0,),
             ),
