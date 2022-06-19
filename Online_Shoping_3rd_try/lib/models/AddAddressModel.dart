@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final addressModel = addressModelFromJson(jsonString);
+//     final addAddressModel = addAddressModelFromJson(jsonString);
 
 import 'dart:convert';
 
-List<AddressModel> addressModelFromJson(String str) => List<AddressModel>.from(json.decode(str).map((x) => AddressModel.fromJson(x)));
+AddAddressModel addAddressModelFromJson(String str) => AddAddressModel.fromJson(json.decode(str));
 
-String addressModelToJson(List<AddressModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String addAddressModelToJson(AddAddressModel data) => json.encode(data.toJson());
 
-class AddressModel {
-  AddressModel({
+class AddAddressModel {
+  AddAddressModel({
     this.id,
     this.userId,
     this.location,
@@ -33,7 +33,7 @@ class AddressModel {
   String? apartmentNumber;
   String? mobileNumber;
 
-  factory AddressModel.fromJson(Map<String, dynamic> json) => AddressModel(
+  factory AddAddressModel.fromJson(Map<String, dynamic> json) => AddAddressModel(
     id: json["id"],
     userId: json["userId"],
     location: json["location"],

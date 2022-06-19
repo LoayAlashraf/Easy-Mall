@@ -15,6 +15,7 @@ void main() async{
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   DioHelperr.init();
+  DioHelperr.GetAddress();
   await CacheHelper.init();
 
   Widget widget;

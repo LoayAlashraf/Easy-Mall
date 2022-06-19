@@ -1,4 +1,5 @@
 import '../models/AddProductToCartModel.dart';
+import '../models/AddressModel.dart';
 import '../models/CartModel.dart';
 import '../models/CategoryModel.dart';
 import '../models/FavModel.dart';
@@ -43,5 +44,10 @@ AddProductToCartModel? addProductToCartModel;
 CartModel? cartModel;
 
 List<CartModel>CartModelByUserIdList=<CartModel>[];
+
+AddressModel? addressModel;
+
+List<AddressModel>AddressModelByUserIdList=<AddressModel>[];
+
 
 

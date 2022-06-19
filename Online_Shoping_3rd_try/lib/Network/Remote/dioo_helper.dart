@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:online_shoping_3rd_try/models/AddProductToCartModel.dart';
+import 'package:online_shoping_3rd_try/models/AddressModel.dart';
 
 import '../../componants/variables.dart';
 import '../../models/FavModel.dart';
@@ -88,5 +89,24 @@ class DioHelperr
           print('ProdcatHasBeenAddToCartSuccesfully');
         }).catchError((error) {print(error.toString());});
   }
+
+  static Future<Response?>GetAddress()async
+  {
+    return DioHelperr.getData(
+        url: FindAddresseUserId,
+    query:
+    {
+      "UserId":2
+    }
+    ).then((value)
+    {
+      AddressModelByUserIdList.clear();
+      for(int i=0;i<value!.data.length;i++){
+        addressModel =AddressModel.fromJson(value.data[i]);
+        AddressModelByUserIdList.add(addressModel!);}
+      print('get adreess done for user id ');
+    }).catchError((error){print(error.toString());});
+  }
+
 
 }

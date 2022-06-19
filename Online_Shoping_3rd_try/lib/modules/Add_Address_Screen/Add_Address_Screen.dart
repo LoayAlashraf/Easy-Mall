@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:online_shoping_3rd_try/Network/Remote/dioo_helper.dart';
 import 'package:online_shoping_3rd_try/modules/Address_Screen/Address_Screen.dart';
+
+import '../../Network/end_point.dart';
 
 class AddAddressScreen extends StatelessWidget
 {
@@ -13,6 +16,14 @@ class AddAddressScreen extends StatelessWidget
     required this.address,
 });
 
+  var LocationController = TextEditingController();
+  var AddressController = TextEditingController();
+  var LabelController = TextEditingController();
+  var StreetName = TextEditingController();
+  var BuildingNumber = TextEditingController();
+  var FloorNumber = TextEditingController();
+  var ApartmentNumber = TextEditingController();
+  var MobileNumber = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +40,8 @@ class AddAddressScreen extends StatelessWidget
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                  'Location'
-              ,style: TextStyle(
+                  'Location',
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -42,8 +53,8 @@ class AddAddressScreen extends StatelessWidget
                 enabled: false,
                 decoration: InputDecoration(
                   hintText: '${latitude} ${longitude}',
-
                 ),
+                controller: LocationController,
               ),
             ),
             SizedBox(height: 20,),
@@ -63,6 +74,7 @@ class AddAddressScreen extends StatelessWidget
                 decoration: InputDecoration(
                   hintText: '${address}',
                 ),
+                controller: AddressController,
               ),
             ),
             SizedBox(height: 20,),
@@ -81,8 +93,8 @@ class AddAddressScreen extends StatelessWidget
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: 'Home/Work/....',
-
                 ),
+                controller: LabelController,
               ),
             ),
             SizedBox(height: 20,),
@@ -101,6 +113,7 @@ class AddAddressScreen extends StatelessWidget
                 decoration: InputDecoration(
                   hintText: 'Street Name',
                 ),
+                controller: StreetName,
               ),
             ),
             SizedBox(height: 20,),
@@ -120,6 +133,7 @@ class AddAddressScreen extends StatelessWidget
                 decoration: InputDecoration(
                   hintText: 'Building name/number',
                 ),
+                controller: BuildingNumber,
               ),
             ),
             SizedBox(height: 20,),
@@ -139,6 +153,7 @@ class AddAddressScreen extends StatelessWidget
                 decoration: InputDecoration(
                   hintText: 'Floor number',
                 ),
+                controller: FloorNumber,
               ),
             ),
             SizedBox(height: 20,),
@@ -158,6 +173,7 @@ class AddAddressScreen extends StatelessWidget
                 decoration: InputDecoration(
                   hintText: 'Apartment number',
                 ),
+                  controller: ApartmentNumber,
               ),
             ),
             SizedBox(height: 20,),
@@ -177,6 +193,7 @@ class AddAddressScreen extends StatelessWidget
                 decoration: InputDecoration(
                   hintText: 'Mobile Number',
                 ),
+                controller: MobileNumber,
               ),
             ),
             SizedBox(height: 20,),
@@ -184,9 +201,25 @@ class AddAddressScreen extends StatelessWidget
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 width: double.infinity,
-                child: MaterialButton(
+                child: MaterialButton ( 
                   onPressed: ()
                   {
+                    DioHelperr.postData(
+                        url: AddressAdd,
+                        data:
+                        {
+                          "userId": 2,
+                          "location": '${latitude} ${longitude}',
+                          "myAddress": '${address}',
+                          "label": LabelController.text.toString(),
+                          "streetName": StreetName.text.toString(),
+                          "buildingNumber": BuildingNumber.text.toString(),
+                          "floorNumber": FloorNumber.text.toString(),
+                          "apartmentNumber": ApartmentNumber.text.toString(),
+                          "mobileNumber": MobileNumber.text.toString(),
+                        }
+                        ).then((value) {print('AdreessHasBeenAddSucsesfully');}).catchError((error){print(error.toString());});
+                    DioHelperr.GetAddress();
                     Navigator.push(context, MaterialPageRoute(builder: (context) => AddressScreen()));
                   },
                   color: Colors.blue,

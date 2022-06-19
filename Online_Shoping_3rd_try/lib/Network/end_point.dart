@@ -9,3 +9,5 @@ const findfavbyuserid='/Favorite/FindFavoriteByUserId';
 const DeleteFromFavByProductId='/Favorite/DeleteByProductId';
 const AddProductToCart='/Cart/Add';
 const FindCartByUserID= '/Cart/FindCartByUserId';
+const AddressAdd ='/Address/Add';
+const FindAddresseUserId ='/Address/FindAddresseUserId';
