@@ -201,9 +201,9 @@ class AddAddressScreen extends StatelessWidget
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 width: double.infinity,
-                child: MaterialButton ( 
+                child: MaterialButton (
                   onPressed: ()
-                  {
+                  async {
                     DioHelperr.postData(
                         url: AddressAdd,
                         data:
@@ -219,7 +219,7 @@ class AddAddressScreen extends StatelessWidget
                           "mobileNumber": MobileNumber.text.toString(),
                         }
                         ).then((value) {print('AdreessHasBeenAddSucsesfully');}).catchError((error){print(error.toString());});
-                    DioHelperr.GetAddress();
+                    await DioHelperr.GetAddress();
                     Navigator.push(context, MaterialPageRoute(builder: (context) => AddressScreen()));
                   },
                   color: Colors.blue,

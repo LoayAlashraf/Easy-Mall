@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:online_shoping_3rd_try/modules/Google_Map_Screen/Google_Map_Screen.dart';
-
 import '../../Network/Remote/dioo_helper.dart';
 import '../../componants/components.dart';
 import '../../componants/variables.dart';
-import '../../models/address_list.dart';
 import '../Buy_conform_screen/Buy_conform_screen.dart';
-import '../Widget/Address.dart';
 
 
 class AddressScreen extends StatelessWidget {
@@ -16,6 +13,7 @@ class AddressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryData size = MediaQuery.of(context);
     var caption2 = Theme.of(context).textTheme.caption;
+    DioHelperr.GetAddress();
     return Scaffold(
       appBar: AppBar(
         title: Text('Address'),
