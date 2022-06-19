@@ -35,3 +35,9 @@ class ShopLoadingFavProductDataScreen extends ShopState{}
 class ShopSuccessFavProductDataScreen extends ShopState{}
 
 class ShopErrorFavProductDataScreen extends ShopState{}
+
+class ShopLoadingCartProductDataScreen extends ShopState{}
+
+class ShopSuccessCartProductDataScreen extends ShopState{}
+
+class ShopErrorCartProductDataScreen extends ShopState{}

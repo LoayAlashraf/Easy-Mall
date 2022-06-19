@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:online_shoping_3rd_try/models/AddProductToCartModel.dart';
 
 import '../../componants/variables.dart';
 import '../../models/FavModel.dart';
@@ -67,6 +68,25 @@ class DioHelperr
             (value) {
               favModel = FavModel.fromJson(value!.data);
             }).catchError((error) {print(error.toString());});
+  }
+  static Future <Response?> addToCart(userId,productId,productName,productImage,productDiscount,productCost,producCount) async
+  {
+    return await DioHelperr.postData(
+        url: AddProductToCart,
+        data:
+        {
+          "userId": userId,
+          "productId": productId,
+          "productName": productName,
+          "productImage": productImage,
+          "productDiscount": productDiscount,
+          "productCost": productCost,
+          "producCount": producCount,
+        }).then(
+            (value) {
+          addProductToCartModel = AddProductToCartModel.fromJson(value!.data);
+          print('ProdcatHasBeenAddToCartSuccesfully');
+        }).catchError((error) {print(error.toString());});
   }
 
 }

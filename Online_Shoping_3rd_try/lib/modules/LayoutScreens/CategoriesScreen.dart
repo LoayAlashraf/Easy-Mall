@@ -1,7 +1,7 @@
 import 'package:conditional_builder_rec/conditional_builder_rec.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_shoping_3rd_try/modules/CategoryProductsScreen.dart';
+import 'package:online_shoping_3rd_try/modules/CategoryProductScreen/CategoryProductsScreen.dart';
 
 import '../../componants/components.dart';
 import '../../componants/variables.dart';

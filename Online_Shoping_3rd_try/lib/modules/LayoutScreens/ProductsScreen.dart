@@ -8,12 +8,15 @@ import 'package:online_shoping_3rd_try/layout/cubit/states.dart';
 import 'package:online_shoping_3rd_try/models/ProductModel.dart';
 import 'package:online_shoping_3rd_try/modules/Details_Screen/details_screen.dart';
 
+import '../../Network/end_point.dart';
 import '../../componants/components.dart';
 import '../../componants/constans.dart';
 import '../../componants/variables.dart';
+import '../../models/productdetailsmodel.dart';
 
 class ProductsScreen extends StatelessWidget {
-  const ProductsScreen({Key? key}) : super(key: key);
+
+  String? detailsimage;
 
   @override
   Widget build(BuildContext context) {
@@ -30,81 +33,7 @@ class ProductsScreen extends StatelessWidget {
         }
     );
   }
-  Widget ProductsBuilder( ProductList,context ) => SingleChildScrollView(
-    scrollDirection: Axis.vertical,
-    child: Column(
-      children: [
-        GridView.count(
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          mainAxisSpacing: 10.0,
-          crossAxisSpacing: 10.0,
-          childAspectRatio: 1/1,
-          children:
-            List.generate( ProductList!.length ,
 
-                  (index) => InkWell(
-                    onTap: ()
-                    {
-                      navigateTo(context,DetailsScreen(index ));
-
-                    },
-                    child: Column(
-                      children: [
-                        SizedBox(height: 10,),
-                        CircleAvatar(
-                          radius: 40.0,
-                          backgroundImage: NetworkImage(ProductList[index]!.image.toString()),
-                          backgroundColor: Colors.white,
-                          ),
-                          SizedBox(
-                              height:8.0),
-                          Text(
-                            ProductList[index].name.toString(),
-                            maxLines: 1,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.0 ,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            textBaseline: TextBaseline.alphabetic,
-                            children: [
-                              Text(
-                                ProductList[index].cost.toString(),
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.0 ,
-                                    color: Colors.black54
-                                ),
-                              ),
-                              Text(
-                                'EGP',
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 9.0 ,
-                                    color: Colors.black54
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-            ),
-        ),
-        ],
-    ),
-  );
   Widget ProductsBuilder2( ProductList,context ) =>
       SingleChildScrollView(
         child: Column(children: [
@@ -119,8 +48,22 @@ class ProductsScreen extends StatelessWidget {
                     (index) => InkWell(
                       onTap: ()
                       {
-                        navigateTo(context,DetailsScreen(productid=ProductList[index]!.id  ));
+                        // navigateTo(context,DetailsScreen(productid=ProductList[index]!.id  ));
                         //print(productid);
+                        DioHelperr.getData(url: productsdetails,
+                                  query: {
+                                    "Id":ProductList[index]!.id
+                                  }).then((value)
+                              {
+                                //print(value.toString());
+                                productdetailsmodel=Productdetailsmodel.fromJson(value!.data);
+                                detailsimage = productdetailsmodel!.image.toString();
+                                print(detailsimage);
+                                print (productdetailsmodel.toString());
+
+                              }).catchError((error){
+                                print(error.toString());});
+                        navigateTo(context, DetailsScreen(detailsimage));
 
                       },
                       child: Container(

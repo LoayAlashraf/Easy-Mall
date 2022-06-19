@@ -7,3 +7,5 @@ const addtofavoret = '/Favorite/Add';
 const productsdetails = '/Products/FindById';
 const findfavbyuserid='/Favorite/FindFavoriteByUserId';
 const DeleteFromFavByProductId='/Favorite/DeleteByProductId';
+const AddProductToCart='/Cart/Add';
+const FindCartByUserID= '/Cart/FindCartByUserId';

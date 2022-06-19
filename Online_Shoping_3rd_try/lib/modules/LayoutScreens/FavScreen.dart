@@ -9,8 +9,6 @@ import '../../componants/constans.dart';
 import '../../componants/variables.dart';
 import '../../layout/cubit/cubit.dart';
 import '../../layout/cubit/states.dart';
-import '../../models/product.dart';
-import '../Widget/My_Wish_Product/My_Wish_Product.dart';
 
 class FavScreen extends StatelessWidget {
 
@@ -148,7 +146,17 @@ class FavScreen extends StatelessWidget {
                                   icontext(
                                       Textt: 'Add to My Cart',
                                       icon: Icons.add_shopping_cart,
-                                      onTap: () {}),
+                                      onTap: () 
+                                      {
+                                        DioHelperr.addToCart(
+                                            userId=2,
+                                            productId=FavModelByUserIdList[index].productId,
+                                            productName=FavModelByUserIdList[index].productName,
+                                            productImage=FavModelByUserIdList[index].productImage,
+                                            productDiscount=FavModelByUserIdList[index].productDiscount,
+                                            productCost=FavModelByUserIdList[index].productCost,
+                                            producCount=FavModelByUserIdList[index].producCount);
+                                      }),
                                   SizedBox(width: 7,)
 
 

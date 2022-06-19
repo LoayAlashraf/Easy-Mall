@@ -6,9 +6,9 @@ import 'package:online_shoping_3rd_try/layout/cubit/states.dart';
 import 'package:online_shoping_3rd_try/models/ProductModel.dart';
 import 'package:online_shoping_3rd_try/modules/Details_Screen/details_screen.dart';
 
-import '../../componants/components.dart';
-import '../../componants/constans.dart';
-import '../../componants/variables.dart';
+import '../../../componants/components.dart';
+import '../../../componants/constans.dart';
+import '../../../componants/variables.dart';
 
 class CategoryProductsScreen extends StatelessWidget {
 

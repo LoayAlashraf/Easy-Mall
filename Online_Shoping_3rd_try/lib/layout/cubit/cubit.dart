@@ -7,6 +7,7 @@ import 'package:online_shoping_3rd_try/Network/Remote/dioo_helper.dart';
 import 'package:online_shoping_3rd_try/Network/end_point.dart';
 import 'package:online_shoping_3rd_try/componants/constans.dart';
 import 'package:online_shoping_3rd_try/layout/cubit/states.dart';
+import 'package:online_shoping_3rd_try/models/CartModel.dart';
 import 'package:online_shoping_3rd_try/models/CategoryModel.dart';
 import 'package:online_shoping_3rd_try/models/FavModelByUserID.dart';
 import 'package:online_shoping_3rd_try/models/ProductModel.dart';
@@ -113,27 +114,6 @@ class ShopCubit extends Cubit<ShopState>
       emit(ShopErrorCategoryProductDataScreen());});
 
   }
-  void getproductdetailsdata (productid,)
-  {
-    emit(ShopLoadingDetailsProductDataScreen());
-    //print(productid);
-    DioHelperr.getData(url: productsdetails,
-        query: {
-          "Id":productid
-        }).then((value)
-    {
-      //print(value.toString());
-      productdetailsmodel=Productdetailsmodel.fromJson(value!.data);
-      String? detailsimage = productdetailsmodel!.image.toString();
-      print(detailsimage);
-      print (productdetailsmodel.toString());
-
-      emit(ShopSuccessDetailsProductDataScreen());
-    }).catchError((error){
-      print(error.toString());
-
-      emit(ShopErrorDetailsProductDataScreen());});
-  }
   void getCategoryData()
   {
     emit(ShopLoadingCategoryDataScreen());
@@ -196,6 +176,30 @@ class ShopCubit extends Cubit<ShopState>
     }).catchError((error){
       print(error.toString());
       emit(ShopErrorFavProductDataScreen());
+    });
+  }
+
+
+  void GetCartdatabyuserid()
+  {
+    emit(ShopLoadingCartProductDataScreen());
+
+    DioHelperr.getData(
+        url: FindCartByUserID,
+        query: {
+          "UserId":2
+        }).then((value)
+    {
+      for(int i=0;i<value!.data.length;i++){
+        cartModel =CartModel.fromJson(value.data[i]);
+        CartModelByUserIdList.add(cartModel!);
+        //printFullText(favModelByUserId!.productName.toString());
+        //printFullText(favModelByUserId!.productId.toString());
+      }
+      emit(ShopSuccessCartProductDataScreen());
+    }).catchError((error){
+      print(error.toString());
+      emit(ShopErrorCartProductDataScreen());
     });
   }
 

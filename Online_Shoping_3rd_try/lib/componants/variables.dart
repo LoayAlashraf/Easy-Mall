@@ -1,3 +1,5 @@
+import '../models/AddProductToCartModel.dart';
+import '../models/CartModel.dart';
 import '../models/CategoryModel.dart';
 import '../models/FavModel.dart';
 import '../models/FavModelByUserID.dart';
@@ -35,4 +37,11 @@ int? productid;
 String? detailsimage;
 
 List<FavModelByUserId>FavModelByUserIdList=<FavModelByUserId>[];
+
+AddProductToCartModel? addProductToCartModel;
+
+CartModel? cartModel;
+
+List<CartModel>CartModelByUserIdList=<CartModel>[];
+
 
