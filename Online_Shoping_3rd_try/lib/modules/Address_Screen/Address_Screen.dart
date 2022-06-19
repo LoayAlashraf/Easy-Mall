@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shoping_3rd_try/modules/Google_Map_Screen/Google_Map_Screen.dart';
 import '../../Network/Remote/dioo_helper.dart';
+import '../../Network/end_point.dart';
 import '../../componants/components.dart';
 import '../../componants/variables.dart';
 import '../Buy_conform_screen/Buy_conform_screen.dart';
@@ -60,7 +61,15 @@ class AddressScreen extends StatelessWidget {
                                       ),),
                                     Expanded(child: SizedBox(width: 0,)),
                                     icontext(
-                                      onTap: (){},
+                                      onTap: ()
+                                      async {
+                                        DioHelperr.postData(url: AddressDelete,
+                                        query:
+                                        {
+                                          "Id": AddressModelByUserIdList[index].id.toString()
+                                        },).then((value) {print('address has been deleted');}).catchError((error){print(error.toString());});
+                                        await DioHelperr.GetAddress();
+                                      },
                                       icon: Icons.remove,
                                       Textt: 'Remove',
                                     ),
