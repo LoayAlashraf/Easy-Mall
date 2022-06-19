@@ -3,15 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shoping_3rd_try/layout/ShopLayout.dart';
 import 'package:online_shoping_3rd_try/layout/cubit/cubit.dart';
 import 'package:online_shoping_3rd_try/layout/cubit/states.dart';
-import 'package:online_shoping_3rd_try/modules/Login_screen/cubit/cubit.dart';
-import 'package:online_shoping_3rd_try/modules/Login_screen/cubit/states.dart';
 import 'package:online_shoping_3rd_try/modules/Login_screen/login_screen.dart';
 import 'Network/Remote/dio_helper.dart';
 import 'Network/Remote/dioo_helper.dart';
 import 'Network/bloc_observer.dart';
 import 'Network/local/cache_helper.dart';
-import 'componants/constans.dart';
-import 'componants/variables.dart';
 import 'modules/on_bording_screen/on_bording_screen.dart';
 
 void main() async{

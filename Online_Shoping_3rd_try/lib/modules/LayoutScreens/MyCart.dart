@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../Network/Remote/dioo_helper.dart';
 import '../../componants/components.dart';
 import '../../componants/constans.dart';
 import '../../componants/items_number.dart';
@@ -9,7 +7,6 @@ import '../../componants/variables.dart';
 import '../../layout/cubit/cubit.dart';
 import '../../layout/cubit/states.dart';
 import '../Buy_conform_screen/Buy_conform_screen.dart';
-import '../Widget/Chossen_Product/Chossen_Product.dart';
 
 class MyCartScreen extends StatelessWidget {
 
