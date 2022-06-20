@@ -12,3 +12,4 @@ const FindCartByUserID= '/Cart/FindCartByUserId';
 const AddressAdd ='/Address/Add';
 const FindAddresseUserId ='/Address/FindAddresseUserId';
 const AddressDelete = '/Address/Delete';
+const CartDelete ='/Cart/Delete';

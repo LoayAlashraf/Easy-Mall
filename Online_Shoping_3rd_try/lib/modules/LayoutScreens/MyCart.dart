@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../Network/Remote/dioo_helper.dart';
+import '../../Network/end_point.dart';
 import '../../componants/components.dart';
 import '../../componants/constans.dart';
 import '../../componants/items_number.dart';
@@ -7,6 +9,7 @@ import '../../componants/variables.dart';
 import '../../layout/cubit/cubit.dart';
 import '../../layout/cubit/states.dart';
 import '../Buy_conform_screen/Buy_conform_screen.dart';
+import '../Details_Screen/details_screen.dart';
 
 class MyCartScreen extends StatelessWidget {
 
@@ -48,7 +51,7 @@ class MyCartScreen extends StatelessWidget {
                           itemCount: CartModelByUserIdList.length,
                           itemBuilder: (context, index) =>
                               InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   // Navigator.push(
                                   //   context,
                                   //   MaterialPageRoute(
@@ -58,6 +61,9 @@ class MyCartScreen extends StatelessWidget {
                                   //     ),
                                   //   ),
                                   // );
+                                  productdetalsid=productid=CartModelByUserIdList[index].productId;
+                                  await DioHelperr.GetDitailsData();
+                                  navigateTo(context, DetailsScreen());
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
@@ -86,9 +92,27 @@ class MyCartScreen extends StatelessWidget {
                                                 child: SizedBox(
                                                   height: size.size.height * .2,
                                                   width: size.size.width * .25,
-                                                  child: Image.network(
-                                                    CartModelByUserIdList[index].productImage.toString(),
-                                                    fit: BoxFit.cover,
+                                                  child: Stack(
+                                                    alignment: AlignmentDirectional.bottomStart,
+                                                    children: [
+                                                      Image.network(
+                                                        CartModelByUserIdList[index].productImage.toString(),
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                      if(int.parse(CartModelByUserIdList[index].productDiscount.toString()) !=0)
+                                                        Container(
+                                                          color: Colors.red,
+                                                          padding: EdgeInsets.symmetric(
+                                                            horizontal: 5.0,
+                                                          ),
+                                                          child: Text('DISCOUNT',
+                                                            style: TextStyle(
+                                                              fontSize: 8.0,
+                                                              color: Colors.white,
+                                                            ),
+                                                          ),
+                                                        )
+                                                    ],
                                                   ),
                                                 ),
                                               ),
@@ -100,6 +124,8 @@ class MyCartScreen extends StatelessWidget {
                                                     Text(
                                                       CartModelByUserIdList[index].productName.toString(),
                                                       style: Theme.of(context).textTheme.bodyText1,
+                                                      maxLines: 2,
+                                                      overflow: TextOverflow.ellipsis,
                                                     ),
                                                     Padding(
                                                       padding: EdgeInsets.symmetric(
@@ -107,8 +133,17 @@ class MyCartScreen extends StatelessWidget {
                                                         vertical: kDefaultpadding / 5, // 5 px padding
                                                       ),
                                                       child:
-                                                      Center(child: Text('Price = ${CartModelByUserIdList[index].productCost.toString()}')),
+                                                      Center(child: Text('Price = ${(int.parse(CartModelByUserIdList[index].productCost.toString())-((int.parse(CartModelByUserIdList[index].productDiscount.toString())/100)*int.parse(CartModelByUserIdList[index].productDiscount.toString()))).toStringAsFixed(2)}')),
                                                     ),
+                                                    if(int.parse(CartModelByUserIdList[index].productDiscount.toString()) !=0)
+                                                      Padding(
+                                                      padding: EdgeInsets.symmetric(
+                                                        horizontal: kDefaultpadding * 1.2, //30 px padding
+                                                        vertical: kDefaultpadding / 5, // 5 px padding
+                                                      ),
+                                                      child:
+                                                      Center(child: Text('Old Price = ${CartModelByUserIdList[index].productCost.toString()}')),                                                    ),
+
 
 
 
@@ -132,14 +167,13 @@ class MyCartScreen extends StatelessWidget {
                                                   icon: Icons.remove_shopping_cart,
                                                   onTap: ()
                                                   {
-                                                    // DioHelperr.postData(
-                                                    //   url: DeleteFromFavByProductId,
-                                                    //   query:
-                                                    //   {
-                                                    //     "id": FavModelByUserIdList[index].productId
-                                                    //
-                                                    //   },
-                                                    // );
+                                                    DioHelperr.postData(
+                                                      url: CartDelete,
+                                                      query:
+                                                      {
+                                                        "Id": CartModelByUserIdList[index].id
+                                                      },
+                                                    ).then((value) {print('delete product from cart done sucsfully');}).catchError((error){print(error.toString());});
                                                   }),
                                               SizedBox(width: 7,),
                                               // icontext(

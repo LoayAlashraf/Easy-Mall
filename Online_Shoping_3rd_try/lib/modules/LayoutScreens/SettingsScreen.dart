@@ -31,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
                   text: 'My Cart',
                   function: ()
                   {
-                   // navigateTo(context, MyCartScreen());
+                    navigateTo(context, MyCartScreen());
                   }),
 
               SizedBox(height: 20,),

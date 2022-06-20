@@ -35,7 +35,9 @@ var MyColor;
 
 int? productid;
 
-String? detailsimage;
+// String? detailsimage;
+String? detailsimage,detailsname,detailsdescription;
+int? productdetalsid,detailsdiscount,detailscount,detailscost;
 
 List<FavModelByUserId>FavModelByUserIdList=<FavModelByUserId>[];
 

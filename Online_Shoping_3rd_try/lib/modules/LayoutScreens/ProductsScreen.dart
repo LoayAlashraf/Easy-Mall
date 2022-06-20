@@ -47,23 +47,29 @@ class ProductsScreen extends StatelessWidget {
                 ProductList!.length,
                     (index) => InkWell(
                       onTap: ()
-                      {
+                      async {
+                        productdetalsid=productid=ProductList[index]!.id;
                         // navigateTo(context,DetailsScreen(productid=ProductList[index]!.id  ));
                         //print(productid);
-                        DioHelperr.getData(url: productsdetails,
-                                  query: {
-                                    "Id":ProductList[index]!.id
-                                  }).then((value)
-                              {
-                                //print(value.toString());
-                                productdetailsmodel=Productdetailsmodel.fromJson(value!.data);
-                                detailsimage = productdetailsmodel!.image.toString();
-                                print(detailsimage);
-                                print (productdetailsmodel.toString());
+                       // await DioHelperr.getData(url: productsdetails,
+                       //            query: {
+                       //              "Id":ProductList[index]!.id
+                       //            }).then((value)
+                       //        {
+                       //          //print(value.toString());
+                       //          productdetailsmodel=Productdetailsmodel.fromJson(value!.data);
+                       //          detailsimage = productdetailsmodel!.image.toString();
+                       //          name=productdetailsmodel!.name.toString();
+                       //          cost=productdetailsmodel!.cost.toString();
+                       //          description=productdetailsmodel!.description.toString();
+                       //          discount=productdetailsmodel!.discount.toString();
+                       //          print (productdetailsmodel.toString());
+                       //
+                       //        }).catchError((error){
+                       //          print(error.toString());});
 
-                              }).catchError((error){
-                                print(error.toString());});
-                        navigateTo(context, DetailsScreen(detailsimage));
+                        await DioHelperr.GetDitailsData();
+                        navigateTo(context, DetailsScreen());
 
                       },
                       child: Container(

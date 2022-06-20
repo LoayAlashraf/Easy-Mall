@@ -9,6 +9,7 @@ import 'package:online_shoping_3rd_try/modules/Details_Screen/details_screen.dar
 import '../../../componants/components.dart';
 import '../../../componants/constans.dart';
 import '../../../componants/variables.dart';
+import '../../Network/Remote/dioo_helper.dart';
 
 class CategoryProductsScreen extends StatelessWidget {
 
@@ -52,8 +53,11 @@ class CategoryProductsScreen extends StatelessWidget {
                 ProductCategoryList!.length,
                     (index) => InkWell(
                   onTap: ()
-                  {
-                    navigateTo(context,DetailsScreen(productid=ProductList[index].id ));
+                  async {
+                    //navigateTo(context,DetailsScreen(productid=ProductList[index].id ));
+                    productdetalsid=productid=ProductCategoryList[index]!.id;
+                    await DioHelperr.GetDitailsData();
+                    navigateTo(context, DetailsScreen());
 
                   },
                   child: Container(

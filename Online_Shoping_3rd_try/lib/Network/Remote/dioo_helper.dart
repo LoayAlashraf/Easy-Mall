@@ -4,6 +4,7 @@ import 'package:online_shoping_3rd_try/models/AddressModel.dart';
 
 import '../../componants/variables.dart';
 import '../../models/FavModel.dart';
+import '../../models/productdetailsmodel.dart';
 import '../end_point.dart';
 
 class DioHelperr
@@ -107,6 +108,28 @@ class DioHelperr
       print('get adreess done for user id ');
     }).catchError((error){print(error.toString());});
   }
+
+  static Future<Response?>GetDitailsData()async
+  {
+    return DioHelperr.getData(url: productsdetails,
+        query: {
+          "Id":productdetalsid
+        }).then((value)
+    {
+      //print(value.toString());
+      productdetailsmodel=Productdetailsmodel.fromJson(value!.data);
+      detailsimage = productdetailsmodel!.image.toString();
+      //print(detailsimage.toString());
+       detailsname=productdetailsmodel!.name.toString();
+      detailscost=productdetailsmodel!.cost;
+      detailsdescription=productdetailsmodel!.description.toString();
+      detailsdiscount=productdetailsmodel!.discount;
+      detailscount=productdetailsmodel!.count;
+       print (productdetailsmodel.toString());
+    }).catchError((error){
+      print(error.toString());});
+  }
+
 
 
 }

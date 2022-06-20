@@ -9,6 +9,7 @@ import '../../componants/constans.dart';
 import '../../componants/variables.dart';
 import '../../layout/cubit/cubit.dart';
 import '../../layout/cubit/states.dart';
+import '../Details_Screen/details_screen.dart';
 
 class FavScreen extends StatelessWidget {
 
@@ -58,7 +59,7 @@ class FavScreen extends StatelessWidget {
               itemCount: FavModelByUserIdList.length,
               itemBuilder: (context, index) =>
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(
@@ -67,6 +68,9 @@ class FavScreen extends StatelessWidget {
                       //     ),
                       //   ),
                       // );
+                      productdetalsid=productid=FavModelByUserIdList[index]!.productId;
+                      await DioHelperr.GetDitailsData();
+                      navigateTo(context, DetailsScreen());
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
@@ -95,9 +99,27 @@ class FavScreen extends StatelessWidget {
                                     child: SizedBox(
                                       height: size.size.height * .2,
                                       width: size.size.width * .25,
-                                      child: Image.network(
-                                        '${FavModelByUserIdList[index].productImage}',
-                                        fit: BoxFit.cover,
+                                      child: Stack(
+                                        alignment: AlignmentDirectional.bottomStart,
+                                        children: [
+                                          Image.network(
+                                            '${FavModelByUserIdList[index].productImage}',
+                                            fit: BoxFit.cover,
+                                          ),
+                                          if(int.parse(FavModelByUserIdList[index].productDiscount) !=0)
+                                            Container(
+                                              color: Colors.red,
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 5.0,
+                                              ),
+                                              child: Text('DISCOUNT',
+                                                style: TextStyle(
+                                                  fontSize: 8.0,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            )
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -109,6 +131,8 @@ class FavScreen extends StatelessWidget {
                                         Text(
                                           FavModelByUserIdList[index].productName.toString(),
                                           style: Theme.of(context).textTheme.bodyText1,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
 
                                         Padding(
@@ -117,7 +141,16 @@ class FavScreen extends StatelessWidget {
                                             vertical: kDefaultpadding / 5, // 5 px padding
                                           ),
                                           child:
-                                          Center(child: Text(FavModelByUserIdList[index].productCost.toString())),
+                                          Center(child: Text('price =${(int.parse(FavModelByUserIdList[index]!.productCost)-((int.parse(FavModelByUserIdList[index]!.productDiscount)/100)*int.parse(FavModelByUserIdList[index]!.productDiscount))).toStringAsFixed(2)}')),
+                                        ),
+                                        if(int.parse(FavModelByUserIdList[index].productDiscount) != 0)
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: kDefaultpadding * 1.2, //30 px padding
+                                            vertical: kDefaultpadding / 5, // 5 px padding
+                                          ),
+                                          child:
+                                          Center(child: Text('Old Price =${FavModelByUserIdList[index].productCost.toString()}')),
                                         ),
                                       ],
                                     ),

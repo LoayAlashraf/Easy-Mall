@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:online_shoping_3rd_try/Network/Remote/dioo_helper.dart';
+import '../../componants/components.dart';
 import '../../componants/constans.dart';
 import '../../componants/variables.dart';
 import '../Widget/details/product_image.dart';
@@ -14,13 +16,18 @@ class DetailsScreen extends StatelessWidget {
    //
    //   product=ProductList[index!];
    // }
-  DetailsScreen(@required detailsimage)
-  {
+  // DetailsScreen({required this.Detailsimage})
+  // {
+  //   DioHelperr.GetDitailsData(detailsimage);
+  // }
+  //
+  // final String Detailsimage;
 
-  }
+
 
   @override
   Widget build(BuildContext context) {
+
               return Scaffold(
                   backgroundColor: kPrimaryColor,
                   appBar: detailsAppBar(context),
@@ -45,34 +52,78 @@ class DetailsScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Center(
-                                child: ProductImage(
-                                  size: MediaQuery.of(context).size,
-                                  image: detailsimage.toString(),
+                                child: Stack(
+                                  alignment: AlignmentDirectional.bottomStart,
+                                  children: [
+                                    ProductImage(
+                                      size: MediaQuery.of(context).size,
+                                      image: detailsimage.toString(),
+                                    ),
+                                    if(detailsdiscount !=0)
+                                      Container(
+                                        color: Colors.red,
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 5.0,
+                                        ),
+                                        child: Text('DISCOUNT',
+                                          style: TextStyle(
+                                            fontSize: 8.0,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      )
+                                  ],
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: kDefaultpadding / 2,),
-                                child: Text('productdetailsmodel.name',
+                                child: Text(detailsname.toString(),
                                   style: Theme.of(context).textTheme.headline6 ,),
                               ),
-                              Text("price"" "
-                                //   'السعر:\$${product.price}'
+                              Row(
+                                children: [
+                                  Text("price ="'${(detailscost!-(detailsdiscount!/100)*detailscost!).toStringAsFixed(2)}'
+                                    ,
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: kSecoundryColor,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  icontext(
+                                      Textt: 'Add to My Cart',
+                                      icon: Icons.add_shopping_cart,
+                                      onTap: ()
+                                      {
+                                        DioHelperr.addToCart(
+                                            userId=2,
+                                            productId=productdetalsid,
+                                            productName=detailsname,
+                                            productImage=detailsimage,
+                                            productDiscount=detailsdiscount.toString(),
+                                            productCost=detailscost.toString(),
+                                            producCount=detailscount.toString());
+                                      }),
+                                ],
+                              ),
+                              SizedBox(height: kDefaultpadding,),
+                              if(detailsdiscount !=0)
+                                Text("Old price ="'${detailscost}'
                                 ,
                                 style: TextStyle(
-                                  fontSize: 28.0,
+                                  fontSize: 20.0,
                                   fontWeight: FontWeight.w600,
                                   color: kSecoundryColor,
                                 ),
                               ),
-                              SizedBox(height: kDefaultpadding,),
                             ],
                           ),
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: kDefaultpadding / 2,),
                           padding: EdgeInsets.symmetric(horizontal: kDefaultpadding*1.5, vertical: kDefaultpadding/2,),
-
-                          child: Text('productdetailsmodel.description',
+                          child: Text(detailsdescription.toString(),
                             style: TextStyle(color: Colors.white,
                               fontSize: 19.0,),
                           ),
